@@ -36,7 +36,19 @@ def segmentImg(img,k):
     
     return seg_img
 
+def extractColor(img,x,y):
+    px = img[int(x),int(y)]
+    img[img != px] = 0
+    
+    return img
 
+def extractColorToBinary(img,x,y):
+    px = img[int(x),int(y)]
+    img[img == px] = 1
+    img[img != px] = 0
+    
+    return img
+    
 path = "afm.png"
 img = imgFromPath(path)
 plt.imshow(img)
@@ -47,3 +59,15 @@ for k in ks:
     seg_img = segmentImg(img,k)
     plt.imshow(seg_img)
     plt.show()
+
+    
+x = input("x coordinate of pixel to represent outlined section(s)")
+y = input("y coordinate of pixel to represent outlined section(s)")
+
+des_color = extractColor(seg_img,x,y)
+plt.imshow(des_color)
+plt.show()
+
+des_color = extractColorToBinary(seg_img,x,y)
+plt.imshow(des_color)
+plt.show()
