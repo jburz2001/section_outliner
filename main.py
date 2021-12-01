@@ -71,14 +71,17 @@ def detectEdges(img,binary):
         
     sobel = cv2.Sobel(src=img, ddepth=cv2.CV_64F, dx=1, dy=1, ksize=7)
     
-    thresh = 100
-    canny = cv2.Canny(img,threshold1=100,threshold2=thresh)
+    thresh = 10
+    canny = cv2.Canny(img,threshold1=thresh,threshold2=thresh)
+
     
     return sobel,canny
 
 def edges(img,type):
     if type == "canny":
         locations =  np.where(img == 255.00)
+    elif type == "sobel":
+        locations = np.where(img == 255.00)
     
     coordinates = list(zip(locations[0], locations[1]))
     
@@ -117,12 +120,19 @@ plt.imshow(opened_closed_img)
 plt.show()
 
 sobel_img, canny_img = detectEdges(opened_closed_img,binary=True)
-plt.imshow(sobel_img)
-plt.show()
+# plt.imshow(sobel_img)
+# plt.show()
 
 plt.imshow(canny_img)
 plt.show()
 
-t = "canny"
-edges = edges(canny_img, t)
-print(edges)
+
+edge_coords = edges(canny_img, "canny")
+#print(edge_coords)
+
+outlinedImg = img
+for coord in edge_coords:
+    outlinedImg[coord] = [33,248,246]
+
+plt.imshow(outlinedImg)
+plt.show()
