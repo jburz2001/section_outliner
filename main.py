@@ -1,6 +1,6 @@
-from PyQt5 import QWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow
 import sys
+from PyQt5.QtWidgets import QApplication, QMainWindow
+
 
 def window():
     app = QApplication(sys.argv)
@@ -12,3 +12,5 @@ def window():
     
     win.show()
     sys.exit(app.exec_())
+    
+window()
