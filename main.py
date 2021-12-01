@@ -76,6 +76,14 @@ def detectEdges(img,binary):
     
     return sobel,canny
 
+def edges(img,type):
+    if type == "canny":
+        locations =  np.where(img == 255.00)
+    
+    coordinates = list(zip(locations[0], locations[1]))
+    
+    return coordinates
+
 img = imgFromPath("afm.png")
 plt.imshow(img)
 plt.show()
@@ -114,3 +122,7 @@ plt.show()
 
 plt.imshow(canny_img)
 plt.show()
+
+t = "canny"
+edges = edges(canny_img, t)
+print(edges)
