@@ -65,6 +65,17 @@ def closeImg(img,kernalRs,kernalCs,iterations):
     
     return closure
 
+def detectEdges(img,binary):
+    if not binary:
+        img = cv2.GaussianBlur(img,(3,3),sigmaX=0,sigmaY=0)
+        
+    sobel = cv2.Sobel(src=img, ddepth=cv2.CV_64F, dx=1, dy=1, ksize=7)
+    
+    thresh = 100
+    canny = cv2.Canny(img,threshold1=100,threshold2=thresh)
+    
+    return sobel,canny
+
 img = imgFromPath("afm.png")
 plt.imshow(img)
 plt.show()
@@ -72,26 +83,34 @@ plt.show()
 ks = [2]
 for k in ks:
     seg_img = segmentImg(img,k)
-    plt.imshow(seg_img)
-    plt.show()
+    # plt.imshow(seg_img)
+    # plt.show()
 
-    
-x = input("x coordinate of pixel to represent outlined section(s)")
-y = input("y coordinate of pixel to represent outlined section(s)")
+x, y = 200, 200  
+# x = input("x coordinate of pixel to represent outlined section(s)")
+# y = input("y coordinate of pixel to represent outlined section(s)")
 
 des_color = extractColor(seg_img,x,y)
 # plt.imshow(des_color)
 # plt.show()
 
 des_binary = extractColorToBinary(seg_img,x,y)
-plt.imshow(des_binary)
-plt.show()
+# des_binary = cv2.cvtColor(des_binary,0)
+# plt.imshow(des_binary)
+# plt.show()
 
 opened_img = openImg(des_binary,5,5,1)
-plt.imshow(opened_img)
-plt.show()
+# plt.imshow(opened_img)
+# plt.show()
 
 
 opened_closed_img = closeImg(opened_img,5,5,1)
 plt.imshow(opened_closed_img)
+plt.show()
+
+sobel_img, canny_img = detectEdges(opened_closed_img,binary=True)
+plt.imshow(sobel_img)
+plt.show()
+
+plt.imshow(canny_img)
 plt.show()
