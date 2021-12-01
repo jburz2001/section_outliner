@@ -51,13 +51,19 @@ def extractColorToBinary(img,x,y):
 
 def openImg(img,kernalRs,kernalCs,iterations):
     kernel = np.ones((kernalRs,kernalCs),np.uint8)
-    kernel = np.ones((5,5),np.uint8)
     
     erosion = cv2.erode(img,kernel,iterations=iterations)
     opening = cv2.dilate(erosion,kernel,iterations=iterations)
     
     return opening
+
+def closeImg(img,kernalRs,kernalCs,iterations):
+    kernel = np.ones((kernalRs,kernalCs),np.uint8)
     
+    dilation = cv2.dilate(img,kernel,iterations=iterations)
+    closure = cv2.erode(dilation,kernel,iterations=iterations)
+    
+    return closure
 
 img = imgFromPath("afm.png")
 plt.imshow(img)
@@ -86,3 +92,6 @@ plt.imshow(opened_img)
 plt.show()
 
 
+opened_closed_img = closeImg(opened_img,5,5,1)
+plt.imshow(opened_closed_img)
+plt.show()
