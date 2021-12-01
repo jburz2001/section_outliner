@@ -44,13 +44,22 @@ def extractColor(img,x,y):
 
 def extractColorToBinary(img,x,y):
     px = img[int(x),int(y)]
-    img[img == px] = 1
+    img[img == px] = 255
     img[img != px] = 0
     
     return img
+
+def openImg(img,kernalRs,kernalCs,iterations):
+    kernel = np.ones((kernalRs,kernalCs),np.uint8)
+    kernel = np.ones((5,5),np.uint8)
     
-path = "afm.png"
-img = imgFromPath(path)
+    erosion = cv2.erode(img,kernel,iterations=iterations)
+    opening = cv2.dilate(erosion,kernel,iterations=iterations)
+    
+    return opening
+    
+
+img = imgFromPath("afm.png")
 plt.imshow(img)
 plt.show()
 
@@ -65,9 +74,15 @@ x = input("x coordinate of pixel to represent outlined section(s)")
 y = input("y coordinate of pixel to represent outlined section(s)")
 
 des_color = extractColor(seg_img,x,y)
-plt.imshow(des_color)
+# plt.imshow(des_color)
+# plt.show()
+
+des_binary = extractColorToBinary(seg_img,x,y)
+plt.imshow(des_binary)
 plt.show()
 
-des_color = extractColorToBinary(seg_img,x,y)
-plt.imshow(des_color)
+opened_img = openImg(des_binary,5,5,1)
+plt.imshow(opened_img)
 plt.show()
+
+
