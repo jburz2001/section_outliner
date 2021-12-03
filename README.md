@@ -34,11 +34,11 @@ Canny edge detection:
 ![image](https://user-images.githubusercontent.com/56214083/144531556-780ed1d2-63f8-421d-a15c-bf2bbcfa9928.png)
 ---
 
-Outline of section of interest:
+Canny outline of section of interest:
 ![image](https://user-images.githubusercontent.com/56214083/144531568-0a33eafe-dfdc-4a41-b15d-876c1761ff49.png)
 ---
 
-Zoomed in view of outline of section of interest:
+Zoomed in view of Canny outline of section of interest:
 ![image](https://user-images.githubusercontent.com/56214083/144531638-15ae4390-32ef-4467-863b-418458cdbe37.png)
 ---
 
